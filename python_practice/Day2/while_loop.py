@@ -5,13 +5,13 @@ while num!=11:
     num+=1
 
 # Ask user to enter numbers until they enter 0, then print the sum of all entered numbers
-number=" "
+total=0
+number=1
 while number!=0:
-    number=int(input("Enter a number: "))
+    number=int(input("Enter a number (0 to stop): "))
     if number!=0:
-        print("Try again")
-    else:
-        print("Great job")
+        total+=number
+print(f"Sum= {total}")
 
 # Write a number guessing game — computer picks a number between 1-10, user keeps guessing until correct
 import random
