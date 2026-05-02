@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My projects</title>
+</head>
+<body>
+      <h1>I'm {{name}} of age {{age}}</h1>
+      {% if age >= 18 %}
+      <p>you're an adult</p>
+      {% else %}
+      <p>you're a minor</p>
+      {% endif %}
+    <h1>My projects</h1>
+    <ul>{% for project in projects %}
+        <li>{{project}}</li>
+        {% endfor %}
+    </ul>  
+</body>
+</html>
