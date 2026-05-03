@@ -17,5 +17,9 @@
         <li>{{project}}</li>
         {% endfor %}
     </ul>  
+    <form action="/greet" method="post">
+    <input type="text" name="username" placeholder="Enter your name">
+    <button type="submit">Submit</button>
+</form>
 </body>
 </html>
