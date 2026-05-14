@@ -25,14 +25,19 @@ def home():
         else:
             data = weather_data.json()
             weather_info = {
-                'city': city,
-                'weather': data['weather'][0]['main'],
-                'temperature': round(data['main']['temp']),
-                'humidity': data['main']['humidity'],
-                'sunrise': datetime.fromtimestamp(data['sys']['sunrise']).strftime('%I:%M %p'),
-                'sunset': datetime.fromtimestamp(data['sys']['sunset']).strftime('%I:%M %p')
-            }
-    
+            'city': city,
+            'weather': data['weather'][0]['main'],
+            'temperature': round(data['main']['temp']),
+            'humidity': data['main']['humidity'],
+            # use timezone offset from API
+            'sunrise': datetime.utcfromtimestamp(
+                data['sys']['sunrise'] + data['timezone']
+            ).strftime('%I:%M %p'),
+            'sunset': datetime.utcfromtimestamp(
+                data['sys']['sunset'] + data['timezone']
+            ).strftime('%I:%M %p')
+        }
+            
     return render_template('index.html', weather=weather_info, error=error)
 
 if __name__ == '__main__':
