@@ -20,10 +20,22 @@ def home():
         weather_data = requests.get(
             f"https://api.openweathermap.org/data/2.5/weather?q={city}&units=imperial&APPID={api_key}"
         )
+        forecast_data = requests.get(
+        f"https://api.openweathermap.org/data/2.5/forecast?q={city}&units=metric&APPID={api_key}"
+        )
         if weather_data.json()['cod'] == '404':
             error = "City not found"
         else:
             data = weather_data.json()
+            forecast = forecast_data.json()
+            daily_forecast = []
+            for i in range(0, 40, 8):
+                day = forecast['list'][i]
+                daily_forecast.append({
+                    'date': datetime.fromtimestamp(day['dt']).strftime('%A, %b %d'),
+                    'temp': round(day['main']['temp']),
+                    'weather': day['weather'][0]['main'],
+                })
             weather_info = {
             'city': city,
             'weather': data['weather'][0]['main'],
@@ -35,7 +47,8 @@ def home():
             ).strftime('%I:%M %p'),
             'sunset': datetime.utcfromtimestamp(
                 data['sys']['sunset'] + data['timezone']
-            ).strftime('%I:%M %p')
+            ).strftime('%I:%M %p'),
+            'forecast': daily_forecast
         }
             
     return render_template('index.html', weather=weather_info, error=error)

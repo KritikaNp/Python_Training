@@ -72,6 +72,20 @@
                 <p>🌇 Sunset: {{ weather.sunset }}</p>
             </div>
         </div>
+    <div class="card mt-4">
+        <div class="card-body">
+            <h3 class="text-white">5 Day Forecast</h3>
+            <div class="row mt-3">
+                {% for day in weather.forecast %}
+                <div class="col text-center text-white">
+                    <p>{{ day.date }}</p>
+                    <p>{{ day.temp }}°C</p>
+                    <p>{{ day.weather }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     {% endif %}
 
 </body>
